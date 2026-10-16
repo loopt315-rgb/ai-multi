@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: coronaryviz
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python -m cadviz.train
+    startCommand: uvicorn cadviz.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/samples
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
